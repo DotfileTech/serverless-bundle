@@ -8,7 +8,7 @@ const importFresh = require("import-fresh");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const { ESBuildMinifyPlugin } = require("esbuild-loader");
+const TerserPlugin = require("terser-webpack-plugin");
 const ConcatTextPlugin = require("concat-text-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
@@ -467,8 +467,8 @@ module.exports = {
     : {
         nodeEnv: false,
         minimizer: [
-          new ESBuildMinifyPlugin({
-            target: esbuildNodeVersion,
+          new TerserPlugin({
+            terserOptions: { keep_classnames: true },
           }),
         ],
       },
